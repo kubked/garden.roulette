@@ -397,6 +397,8 @@ class Roulette(Tickline):
         half_length = self.line_length / 2. / self.scale
         index_0 = center_index - half_length
         index_1 = center_index + half_length
+        if self.backward:
+            index_0, index_1 = index_1, index_0
         if animate:
             anim = Animation(index_0=index_0, index_1=index_1,
                              duration=self.center_duration)
@@ -474,6 +476,7 @@ if __name__ == '__main__':
     from kivy.uix.label import Label
     b = BoxLayout()
     b.add_widget(Roulette(density=2.8, selected_value=2013))
+    b.add_widget(Roulette(density=2.8, selected_value=2013, backward=True))
     b.add_widget(CyclicRoulette(cycle=12, density=2.8, zero_indexed=False))
     b.add_widget(CyclicRoulette(cycle=30, density=2.8, zero_indexed=False))
     b.add_widget(TimeFormatCyclicRoulette(cycle=24))
